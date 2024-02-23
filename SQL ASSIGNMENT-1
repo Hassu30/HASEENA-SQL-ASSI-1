@@ -1,0 +1,50 @@
+--My first SQL Assignment
+
+create table branch_Assi_01(branch_id int primary key, branch_name varchar(50) not null);
+ insert into branch_Assi_01(branch_id,branch_name)values
+ (1,'Aeronautical Engineering'),
+ (2,'Fashion Designin'),
+ (3,'Auto Mobile Engineering');
+
+select * from branch_Assi_01;
+
+ create table employees_Assi_01 (emp_id int primary key,emp_name varchar(50)not null,emp_branch_id int references branch_Assi_01(branch_id),
+ emp_salary decimal (10,2) not null);
+ insert into employees_Assi_01 (emp_id,emp_name,emp_branch_id,emp_salary) values
+ (1,'John Doe',1,60000.00),
+ (2,'Alice Smith',2,70000.00),
+ (3,'Bob Johnson',1,55000.00),
+ (4,'Eva Williams',3,80000.00),
+ (5,'Mike Davis',2,75000.00),
+ (6,'Mike',3,7500.00),
+ (7,'Davis',2,6500.00),
+ (8,'Avinash',1,85000.00);
+
+ Select * from employees_Assi_01;
+
+--Perform Aggregation operation on over all data without using group by statement
+ select min(emp_salary)as Min_Employee_Salary from employees_Assi_01;
+ select max(emp_salary)as Max_Employee_Salary from employees_Assi_01;
+ select count(*) No_of_employees from employees_Assi_01;
+ select avg(emp_salary) as Average_Salary from employees_Assi_01;
+ select sum(emp_salary) as Sum_of_Salary from employees_Assi_01;
+
+
+ --Perform Aggregation operation on over all data with using group by statement
+SELECT emp_branch_id, SUM(emp_salary) AS total_salary FROM employees_Assi_01 GROUP BY emp_branch_id;
+SELECT AVG(emp_salary) AS average_salary FROM employees_Assi_01;
+SELECT MAX(emp_salary) AS max_salary, MIN(emp_salary) AS min_salary FROM employees_Assi_01;
+SELECT emp_branch_id, COUNT(*) AS num_employees FROM employees_Assi_01 GROUP BY emp_branch_id;
+
+--Perform Aggregation operation on over all data with using group by statement ,having condition
+SELECT emp_branch_id, SUM(emp_salary) AS total_salary FROM employees_Assi_01 GROUP BY emp_branch_id HAVING SUM(emp_salary) <200000;
+
+SELECT emp_branch_id, AVG(emp_salary) AS average_salary FROM employees_Assi_01 GROUP BY emp_branch_id HAVING COUNT(*) > 2;
+
+SELECT emp_branch_id, MAX(emp_salary) AS max_salary FROM employees_Assi_01 GROUP BY emp_branch_id	HAVING MAX(emp_salary) >80000;
+
+SELECT emp_branch_id, min(emp_salary) AS max_salary FROM employees_Assi_01 GROUP BY emp_branch_id	HAVING min(emp_salary) <80000;
+
+SELECT emp_branch_id, COUNT(*) AS num_branches FROM employees_Assi_01 GROUP BY emp_branch_id HAVING AVG(emp_salary) > 70000;
+
+
